@@ -1,0 +1,5 @@
+.buttonsGroup {
+  display: grid;
+  justify-items: right;
+  font-family: "Oswald";
+}

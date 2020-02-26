@@ -4,6 +4,7 @@ import './Product-list.css';
 import ProductListPosts from '../product-list-posts';
 import ProductListPaginator from '../product-list-paginator';
 import ProductListButtonPages from '../product-list-button-pages';
+import SearchBar from '../search-bar/search-bar';
 
 function ProductList() {
     const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ function ProductList() {
     const [postsPerPage, setPostsPerPage] = useState(15);
 
     useEffect(() => {
-            axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('https://jsonplaceholder.typicode.com/posts')
             .then(res => setPosts(res.data));
     }, []);
 
@@ -26,15 +27,27 @@ function ProductList() {
     const changePagination = () => setCurrentPage(1);
 
     return (
-        <section className="left-side">
-            <ProductListButtonPages
-                changeItems={changeItemsMethod}
-                changeCurrentPage={changePagination}
-                className="buttonsGroup"
-            />
-            <ProductListPosts posts={currentPosts} />
-            <ProductListPaginator postPerPage={postsPerPage} totalPosts={posts.length} paginate={paginateMethod} />
-        </section>
+        <div className="productListPage">
+
+            <div className="productCategory"><span>Sweaters</span></div>
+
+            <div className="sortField">
+                <SearchBar className="searchField" />
+                <div className="sortByPriceField">Sort by price</div>
+                <div className="sortByRatingField">Sort by raiting</div>
+            </div>
+
+            <div className="filters">Filters</div>
+            <div className="list">
+                <ProductListButtonPages
+                    changeItems={changeItemsMethod}
+                    changeCurrentPage={changePagination}
+                    className="buttonsGroup productListButtons "
+                />
+                <ProductListPosts posts={currentPosts} className="productList" />
+                <ProductListPaginator postPerPage={postsPerPage} totalPosts={posts.length} paginate={paginateMethod} class="paginator" />
+            </div>
+        </div>
     );
 }
 
